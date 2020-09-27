@@ -11,6 +11,8 @@
 #include "util.h"
 #include "bench.h"
 
+#undef ENABLE_OPENSSL_TESTS
+
 #ifdef ENABLE_OPENSSL_TESTS
 #include <openssl/bn.h>
 #include <openssl/ecdsa.h>
@@ -86,7 +88,7 @@ int main(void) {
     secp256k1_ecdsa_signature sig;
     benchmark_verify_t data;
 
-    int iters = get_iters(20000);
+    int iters = get_iters(1);
 
     data.ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
 
@@ -103,7 +105,7 @@ int main(void) {
     data.pubkeylen = 33;
     CHECK(secp256k1_ec_pubkey_serialize(data.ctx, data.pubkey, &data.pubkeylen, &pubkey, SECP256K1_EC_COMPRESSED) == 1);
 
-    run_benchmark("ecdsa_verify", benchmark_verify, NULL, NULL, &data, 10, iters);
+    run_benchmark("ecdsa_verify", benchmark_verify, NULL, NULL, &data, 1, iters);
 #ifdef ENABLE_OPENSSL_TESTS
     data.ec_group = EC_GROUP_new_by_curve_name(NID_secp256k1);
     run_benchmark("ecdsa_verify_openssl", benchmark_verify_openssl, NULL, NULL, &data, 10, iters);

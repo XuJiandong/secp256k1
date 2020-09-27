@@ -51,7 +51,7 @@ void bench_recover_setup(void* arg) {
 int main(void) {
     bench_recover_data data;
 
-    int iters = get_iters(20000);
+    int iters = get_iters(1);
 
     data.ctx = secp256k1_context_create(SECP256K1_CONTEXT_VERIFY);
 
