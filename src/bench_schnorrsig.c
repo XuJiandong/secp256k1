@@ -50,7 +50,7 @@ void bench_schnorrsig_verify(void* arg, int iters) {
 int main(void) {
     int i;
     bench_schnorrsig_data data;
-    int iters = get_iters(10000);
+    int iters = get_iters(1);
 
     data.ctx = secp256k1_context_create(SECP256K1_CONTEXT_VERIFY | SECP256K1_CONTEXT_SIGN);
     data.keypairs = (const secp256k1_keypair **)malloc(iters * sizeof(secp256k1_keypair *));
