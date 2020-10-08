@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.15)
 project(secp256k1 C)
 
 # run firs:
@@ -12,6 +12,8 @@ add_definitions(-DHAVE_CONFIG_H)
 add_definitions(-DENABLE_MODULE_RECOVERY)
 add_definitions(-DENABLE_MODULE_SCHNORRSIG)
 add_definitions(-DENABLE_MODULE_EXTRAKEYS)
+
+add_executable(bench_sign src/bench_sign.c src/secp256k1.c)
 
 add_executable(bench_verify src/bench_verify.c src/secp256k1.c)
 

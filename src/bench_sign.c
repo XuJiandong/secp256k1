@@ -32,10 +32,12 @@ static void bench_sign_run(void* arg, int iters) {
 
     unsigned char sig[74];
     for (i = 0; i < iters; i++) {
+        uint8_t compact_sig[64] = {0};
         size_t siglen = 74;
         int j;
         secp256k1_ecdsa_signature signature;
         CHECK(secp256k1_ecdsa_sign(data->ctx, &signature, data->msg, data->key, NULL, NULL));
+        CHECK(secp256k1_ecdsa_signature_serialize_compact(data->ctx, compact_sig, &signature));
         CHECK(secp256k1_ecdsa_signature_serialize_der(data->ctx, sig, &siglen, &signature));
         for (j = 0; j < 32; j++) {
             data->msg[j] = sig[j];
@@ -47,7 +49,7 @@ static void bench_sign_run(void* arg, int iters) {
 int main(void) {
     bench_sign data;
 
-    int iters = get_iters(20000);
+    int iters = get_iters(1);
 
     data.ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
 
